@@ -7,7 +7,7 @@ function Profile() {
     const [profileData, setProfileData] = useState({});
     const navigate = useNavigate();
 
-    useEffect(() => {
+    React.useEffect(() => {
         const fetchProfileData = async () => {
             const token = localStorage.getItem('token');
             if (!token) {
@@ -18,13 +18,12 @@ function Profile() {
             try {
                 const response = await axios.get('/api/profile/me', {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        'x-auth-token': token,
                     },
                 });
                 setProfileData(response.data);
             } catch (err) {
                 console.error(err);
-                navigate('/auth');
             }
         };
 
@@ -39,10 +38,10 @@ function Profile() {
     return (
         <Container>
             <ProfileContainer>
-                <h2>User profile</h2>
-                <ProfileText>user name: {profileData.username}</ProfileText>
-                <ProfileText>email: {profileData.email}</ProfileText>
-                <Button onClick={handleLogout}>logout</Button>
+                <h2>User Profile</h2>
+                <ProfileText>Username: {profileData.name}</ProfileText>
+                <ProfileText>Email: {profileData.email}</ProfileText>
+                <Button onClick={handleLogout}>Logout</Button>
             </ProfileContainer>
         </Container>
     );

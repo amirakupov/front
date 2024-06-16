@@ -1,44 +1,56 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    text-align: center;
+    background-color: #242424;
 `;
 
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 1rem;
+    padding: 2rem;
+    background: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 export const Input = styled.input`
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 0.5rem;
     border-radius: 4px;
-    font-size: 16px;
-    width: 100%;
+    border: 1px solid #ccc;
+    font-size: 1rem;
 `;
 
 export const Button = styled.button`
-    padding: 10px;
-    border: none;
+    padding: 0.5rem;
     border-radius: 4px;
-    background-color: #007bff;
+    border: none;
+    background: #ff6f61;
     color: white;
+    font-size: 1rem;
     cursor: pointer;
-    font-size: 16px;
 
     &:hover {
-        background-color: #0056b3;
+    background: #ff3b2f;
     }
 `;
 
 export const ErrorMessage = styled.p`
     color: red;
+`;
+export const ToggleLink = styled.p`
+  color: #646cff;
+  cursor: pointer;
+  margin-top: 1rem;
+  text-align: center;
+
+  &:hover {
+    color: #535bf2;
+  }
 `;
