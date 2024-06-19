@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import DonorCard from './DonorCard';
 import styled from 'styled-components';
 import CampaignCard from './CampaignCard'
+import withAuth from '/Users/amirakupov/Desktop/projects/DonateFront/front/src/auth/withAuth.js';
 
 
 const Dashboard = () => {
-    const campaigns = [
-      { name: "Education Drive", description: "Supporting education in rural areas.", current: 2, goal: 5 },
-      { name: "Health Support", description: "Aid for health facilities.", current: 3, goal: 3 },
-      { name: "Reforestation", description: "Planting trees in deforested regions.", current: 1, goal: 4 },
-      // Add more campaign details as required
-    ];
+    const [campaigns, setCampaigns] = useState([]);
+
+    useEffect(() => {
+      const fetchProjects = async () => {
+          const token = localStorage.getItem('token');
+          try {
+              const response = await axios.get('/api/projects', {
+                  headers: {
+                      'x-auth-token': token,
+                  },
+              });
+              setCampaigns(response.data);
+          } catch (error) {
+              console.error('Error fetching projects', error);
+          }
+      };
+
+      fetchProjects();
+  }, []);
+     
     return (
       <DashboardContainer>
         <Content>
@@ -41,7 +57,7 @@ const Dashboard = () => {
     );
   };
 
-export default Dashboard;
+export default withAuth(Dashboard);
 
 // Styled components
 const DashboardContainer = styled.div`

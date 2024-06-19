@@ -1,14 +1,44 @@
-import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import {React, useState } from "react";
+import {Link } from "react-router-dom";
+
 
 const Navbar = () => {
+
+  const [connectStatus, setConnectStatus] = useState("Connect Wallet");
+
+  const btnhandler = () => {
+    if (connectStatus === "Connect Wallet") {
+      if (window.ethereum) {
+        window.ethereum
+          .request({ method: "eth_requestAccounts" })
+          .then((res) => {
+            setConnectStatus(
+              "Connected"
+            );
+            localStorage.setItem("walletAddress", res[0]);
+            localStorage.setItem("walletConnected", "True");
+          });
+        setConnectStatus("Connected");
+      } else {
+        alert("install metamask extension!!");
+      }
+    } else {
+      setConnectStatus("Connect Wallet");
+      localStorage.removeItem("walletAddress");
+      localStorage.removeItem("walletConnected");
+    }
+  };
+
+
+
   return (
+    
     <Nav>
       <StyledLink to="/dashboard">Dashboard</StyledLink>
       <StyledLink to="/create-campaign">Create Campaign</StyledLink>
       <StyledLink to="/donation-campaigns">Donation Campaigns</StyledLink>
-      <Button>Connect Wallet</Button>
+      <Button onClick={btnhandler}>{connectStatus}</Button>
       <Button style={{ marginLeft: 'auto' }}>Donate Fund</Button>
     </Nav>
   );

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Container, ProfileContainer, ProfileText, Button } from './styles/profileStyles';
 import { useNavigate } from 'react-router-dom';
+import withAuth from '/Users/amirakupov/Desktop/projects/DonateFront/front/src/auth/withAuth.js';
 
 function Profile() {
     const [profileData, setProfileData] = useState({});
     const navigate = useNavigate();
 
-    React.useEffect(() => {
+    useEffect(() => {
         const fetchProfileData = async () => {
             const token = localStorage.getItem('token');
             if (!token) {
@@ -16,11 +17,12 @@ function Profile() {
             }
 
             try {
-                const response = await axios.get('/api/profile/me', {
+                const response = await axios.get('/api/users/me', {
                     headers: {
                         'x-auth-token': token,
                     },
                 });
+                console.log(response.data);
                 setProfileData(response.data);
             } catch (err) {
                 console.error(err);
@@ -47,4 +49,4 @@ function Profile() {
     );
 }
 
-export default Profile;
+export default withAuth(Profile);

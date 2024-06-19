@@ -5,8 +5,9 @@ import Profile from './components/Profile';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import Navbar from './components/Navbar';
-
-
+import ProjectList from './components/projects/ProjectList';
+import ProjectForm from './components/projects/ProjectForm';
+import ProjectDetail from './components/projects/ProjectDetail';
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
               <Route path="/auth" element={<Auth />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/projects" element={<ProjectList />} />
+              <Route path="/projects/new" element={<ProjectForm />} />
+              <Route path="/projects/:id" element={<ProjectDetail />} />
+              <Route path="/projects/edit/:id" element={<ProjectForm />} />
           </Routes>
       </Router>
   );
